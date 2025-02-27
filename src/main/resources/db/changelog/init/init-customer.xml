@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-table-customer" author="mastvei-kavalenka">
+        <createTable tableName="customer">
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="suffix" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-customer-account" author="mastvei-kavalenka">
+        <createTable tableName="Customer_Account">
+            <column name="customer_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="load-data-customer" author="mastvei-kavalenka">
+        <loadData tableName="customer" file="db/changelog/csv/customer.csv" separator="," encoding="UTF-8">
+            <column name="id" type="NUMERIC"/>
+            <column name="first_name" type="STRING"/>
+            <column name="last_name" type="STRING"/>
+            <column name="suffix" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-data-customer-account" author="mastvei-kavalenka">
+        <loadData tableName="Customer_Account" file="db/changelog/csv/customer_account.csv" separator="," encoding="UTF-8">
+            <column name="id" type="NUMERIC"/>
+            <column name="customer_id" type="NUMERIC"/>
+            <column name="account_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
